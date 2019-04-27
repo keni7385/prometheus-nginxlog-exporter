@@ -1,2 +1,5 @@
+
 /.idea/
 /prometheus-nginxlog-exporter
+/venv/*
+!/venv/requirements.txt
