@@ -83,6 +83,7 @@ func (m *Metrics) Init(cfg *config.NamespaceConfig) {
 		Namespace: cfg.Name,
 		Name:      "http_upstream_time_seconds_hist",
 		Help:      "Time needed by upstream servers to handle requests",
+		Buckets:   cfg.UpstreamSecondsHistBucket,
 	}, labels)
 
 	m.responseSeconds = prometheus.NewSummaryVec(prometheus.SummaryOpts{
@@ -95,6 +96,7 @@ func (m *Metrics) Init(cfg *config.NamespaceConfig) {
 		Namespace: cfg.Name,
 		Name:      "http_response_time_seconds_hist",
 		Help:      "Time needed by NGINX to handle requests",
+	    Buckets:   cfg.ResponseSecondsHistBucket,
 	}, labels)
 
 	m.parseErrorsTotal = prometheus.NewCounter(prometheus.CounterOpts{
@@ -128,6 +130,8 @@ func main() {
 	flag.BoolVar(&opts.EnableExperimentalFeatures, "enable-experimental", false, "Set this flag to enable experimental features")
 	flag.StringVar(&opts.CPUProfile, "cpuprofile", "", "write cpu profile to `file`")
 	flag.StringVar(&opts.MemProfile, "memprofile", "", "write memory profile to `file`")
+	flag.StringVar(&opts.UpstreamSecondsHistBucket, "upstream-seconds-hist-bucket", ".005,.01,.025,.05,.1,.25,0.5,1,2.5,5,10", "CSV float numbers for the upstream seconds histogram buckets")
+	flag.StringVar(&opts.ResponseSecondsHistBucket, "response-seconds-hist-bucket", ".005,.01,.025,.05,.1,.25,0.5,1,2.5,5,10", "CSV float numbers for the response seconds histogram buckets")
 	flag.Parse()
 
 	opts.Filenames = flag.Args()

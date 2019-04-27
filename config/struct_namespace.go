@@ -15,6 +15,9 @@ type NamespaceConfig struct {
 
 	OrderedLabelNames  []string
 	OrderedLabelValues []string
+
+	UpstreamSecondsHistBucket  []float64 `hcl:"upstream_seconds_hist_bucket" yaml:"upstream_seconds_hist_bucket"`
+	ResponseSecondsHistBucket  []float64 `hcl:"response_seconds_hist_bucket" yaml:"response_seconds_hist_bucket"`
 }
 
 // StabilityWarnings tests if the NamespaceConfig uses any configuration settings

@@ -12,6 +12,9 @@ type StartupFlags struct {
 
 	CPUProfile string
 	MemProfile string
+
+	UpstreamSecondsHistBucket string
+	ResponseSecondsHistBucket string
 }
 
 // Config models the application's configuration
